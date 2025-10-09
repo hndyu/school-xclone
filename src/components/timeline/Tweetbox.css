@@ -1,32 +1,53 @@
-.tweetBox{
+.tweetBox {
     padding-bottom: 10px;
     border-bottom: 8px solid var(--twitter-background);
     padding-right: 10px;
 }
 
-.tweetBox>form{
+.tweetBox>form {
     display: flex;
     flex-direction: column;
 }
 
-.tweetBox_input{
+.tweetBox_input {
     padding: 20px;
     display: flex;
 }
 
-.tweetBox_input>input{
+.tweetBox_input>input {
     flex: 1;
     font-size: 20px;
     margin-left: 20px;
     border: none;
+    outline: none;
+    background-color: transparent;
 }
 
-.tweetBox_imageInput{
+.tweetBox_imageInput {
     border: none;
     padding: 20px;
+    padding: 10px 20px;
+    width: 100%;
+    cursor: pointer;
 }
 
-.tweetBox_tweetButton{
+.tweetBox_imageInput::file-selector-button {
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 2px solid var(--twitter-color);
+    border-radius: 20px;
+    background: white;
+    color: var(--twitter-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tweetBox_imageInput::file-selector-button:hover {
+    background-color: var(--twitter-color);
+    color: white;
+}
+
+.tweetBox_tweetButton {
     background-color: var(--twitter-color) !important;
     color: white !important;
     font-weight: 900 !important;
@@ -35,4 +56,16 @@
     border-radius: 30px !important;
     margin-top: 20px !important;
     margin-left: auto !important;
+}
+
+.tweetBox_preview {
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tweetBox_error {
+    color: red;
+    font-size: 14px;
+    margin: 5px 0;
 }
