@@ -1,8 +1,9 @@
-import { Avatar, Button, CircularProgress } from '@mui/material'
+import { Avatar, Button, CircularProgress, IconButton } from '@mui/material'
 import React, { useRef, useState } from 'react'
 import "./Tweetbox.css"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import db from "../../firebase"
+import { AddPhotoAlternate, PhotoCamera } from '@mui/icons-material'
 
 const Tweetbox = () => {
     const [tweetMessage, setTweetMessage] = useState("");
@@ -13,8 +14,8 @@ const Tweetbox = () => {
     const fileInputRef = useRef(null);
     const cameraInputRef = useRef(null);
     const [showCamera, setShowCamera] = useState(false);
-    const [videoRef, setVideoRef] = useRef(null);
-    const [streamRef, setstreamRef] = useRef(null);
+    const videoRef = useRef(null);
+    const streamRef = useRef(null);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -178,19 +179,65 @@ const Tweetbox = () => {
                         required
                     />
                 </div>
-                <div className='tweetBox_imageInputContainer'>
-                    <input
-                        className='tweetBox_imageInput'
-                        type="file"
-                        accept='image/*'
-                        onChange={handleImageChange}
-                    />
+                <div className='tweetBox_mediaButtons'>
+                    <IconButton
+                        color="primary"
+                        onClick={() => fileInputRef.current.click()}
+                        className='tweetBox--mediaButton'
+                    >
+                        <AddPhotoAlternate />
+                    </IconButton>
+                    <IconButton
+                        color="primary"
+                        onClick={startCamera}
+                        className='tweetBox--mediaButton'
+                    >
+                        <PhotoCamera />
+                    </IconButton>
                 </div>
+                {showCamera && (
+                    <div className='tweetBox--camera'>
+                        <video
+                            ref={videoRef}
+                            autoPlay
+                            playsInline
+                            onLoadedMetadata={handleVideoLoad}
+                            style={{ width: "100%", maxHeight: "300px" }}
+                        />
+                        <Button
+                            onClick={takePicture}
+                            variant='contained'
+                            color='primary'
+                            style={{ margin: "10px 0" }}
+                        >撮影する</Button>
+                        <Button
+                            onClick={stopCamera}
+                            variant='outlined'
+                            color='secondary'
+                            style={{ margin: "10px 0 10px 10px" }}
+                        >キャンセル</Button>
+                    </div>
+                )}
+                <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept='image/*'
+                    style={{ display: "none" }}
+                    onChange={handleImageChange}
+                />
+                <input
+                    ref={cameraInputRef}
+                    type="file"
+                    accept='image/*'
+                    capture="environment"
+                    style={{ display: "none" }}
+                    onChange={handleCameraCapture}
+                />
                 {preview && (
                     <div className='tweetBox_preview'>
                         <img
                             src={preview}
-                            alt="preview"
+                            alt="プレビュー"
                             style={{ maxWidth: "100%", maxHeight: "200px" }}
                         />
                     </div>

@@ -69,3 +69,31 @@
     font-size: 14px;
     margin: 5px 0;
 }
+
+.tweetBox--mediaButtons{
+    display: flex;
+    gap: 10px;
+    padding: 0 20px;
+    margin-top: 10px;
+}
+
+
+.tweetBox--mediaButton{
+    color: var(--twitter-color) !important;
+}
+
+.tweetBox--mediaButton:hover{
+    background-color: rgba(29, 155, 240, 0.1) !important;
+}
+
+.tweetBox--camera{
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.tweetBox--camera video{
+    border-radius: 10px;
+    background-color: #000;
+}
